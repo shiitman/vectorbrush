@@ -1,0 +1,158 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <script type="text/javascript">
+        WebFontConfig = {
+            google: {
+                families: ['Seymour+One:', 'PT+Sans:400,700,400italic,700italic:cyrillic-ext', 'Andika::cyrillic-ext', 'Neucha:', 'Bad+Script:', 'Istok+Web:400,700,400italic,700italic:cyrillic-ext', 'Ubuntu:400,700,400italic,700italic:cyrillic-ext,greek', 'PT+Mono::cyrillic-ext', 'Marck+Script:', 'PT+Serif:400,700,400italic,700italic:cyrillic-ext', 'Lobster:', 'EB+Garamond::cyrillic-ext', 'PT+Sans+Caption:400,700:cyrillic-ext', 'Open+Sans:400italic,700italic,400,700:cyrillic-ext,greek', 'Vollkorn:400italic,700italic,400,700', 'Stalinist+One:', 'Stardos+Stencil:400,700', 'Press+Start+2P::greek']
+            }
+        };
+        (function() {
+            var wf = document.createElement('script');
+            wf.src = ('https:' == document.location.protocol ? 'https' : 'http') +
+                '://ajax.googleapis.com/ajax/libs/webfont/1/webfont.js';
+            wf.type = 'text/javascript';
+            wf.async = 'true';
+            var s = document.getElementsByTagName('script')[0];
+            s.parentNode.insertBefore(wf, s);
+        })();
+
+    </script>
+    <script src="3rdpart/jquery.min.js"></script>
+    <script type="text/javascript" src="3rdpart/jquery.cookie.min.js"></script>
+    <link rel="stylesheet" href="3rdpart/jquery-ui.css">
+    <link rel="stylesheet" href="3rdpart/theme.css">
+
+    <link rel="stylesheet" href="css/iconic-font.css">
+    <link rel="stylesheet" href="css/catify.css">
+
+    <script src="3rdpart/jquery-ui.min.js"></script>
+    <script src="3rdpart/jquery.form-validator.min.js"></script>
+    <script src="3rdpart/face/ccv.js"></script>
+    <script src="3rdpart/face/cascade.js"></script>
+    <script src="3rdpart/face/jquery.facedetection.js"></script>
+
+    <script type="text/javascript" src="src/vectorbrush.js"></script>
+    <script type="text/javascript" src="catify.js"></script>
+</head>
+
+<body>
+    <div id="mainmenu">
+        <div style="float:right;"><a href="#" class="helpbutton" id="readmore" title="Help"><span class="icon-help-circled"></span></a></div>
+        <div style="clear:both;"></div>
+
+        <div id="accordion">
+            <h3>Source image <span class="icon-picture"></span></h3>
+            <div>
+                <label for="imagelink">Load online.</label>
+                <br>
+                <input id="imagelink" name="imagelink" data-validation="url" type="url" value="" required>
+                <button id="loadlink"><span class="icon-globe"></span></button>
+                <br>
+                <label for="fileupload">Upload.</label>
+                <br>
+                <button class="pseudobutton" onclick="$('#fileupload').trigger('click');"><span class="icon-picture"></button></a>
+                <input type="file" id="fileupload" accept=".gif,.jpg,.png,.svg|image/*" style="max-width:300px;display:none;"> </div>
+            <h3>Workplace in cookies <span class="icon-folder-open-empty"> <span class="icon-floppy"></span></h3>
+            <div>
+                <button id="loadfromcookies"><span class="icon-folder-open-empty"></span>Load from cookies</button>
+                <button id="savetocookies"><span class="icon-floppy"></span>Save to cookies</button>
+            </div>
+
+            <h3>Download! <span class="icon-download"></span></h3>
+            <div>
+                <div id="savebuttons">
+                    <button data-ext="jpeg"><span class="icon-download"></span> .jpg</button>
+                    <button data-ext="png"><span class="icon-download"></span> .png</button><br>
+                    <a href="#" id="downloadlink" style="display:none;" target="_blank"></a>
+                </div>
+                <div id="nosavebuttons" style="display:none;">
+                    Save image generation not possible, try different image source. You still can save image by pressing right button on canvas
+                </div>
+            </div>
+
+        </div>
+    </div>
+    <div id="brushwindow" class="_tools">
+        <div id="brushes"></div>
+    </div>
+
+    <div id="tools" class="_tools ">
+        <div id="toolstabs">
+            <ul>
+                <li><a href="#tabs-1">Face detection</a></li>
+                <li><a href="#tabs-2">Actions</a></li>
+                <li><a href="#tabs-3">Canvas</a></li>
+                <li><a href="#tabs-4">Text</a></li>
+                <!--                            <li><a href="#tabs-4">Текст</a></li>-->
+
+            </ul>
+            <div id="tabs-1">
+                <button id="detect" title="Automatically mask everything!"><span class="icon-cat-awu" style="font-size:150%;"></span>Mask everything</button>
+            </div>
+            <div id="tabs-2">
+                <a href="#" id="deleteall" class="toolbutton tool-red" title="Delete all"><span class="icon-trash-empty"></span></a>|
+                <a href="#" id="deletesel" class="toolbutton tool-red" title="Delete selected"><span class="icon-cancel-circled-outline"></span></a>|
+                <a href="#" id="layerup" class="toolbutton" title="Layer up"><span class="icon-up-big"></span></a>
+                <a href="#" id="layerdown" class="toolbutton" title="Layer down"><span class="icon-down-big"></span></a>|
+                <a href="#" id="changeicon" class="toolbutton" title="Replace"><span class="icon-switch"></span></a>|
+                <a href="#" id="rotatebutton" class="toolbutton" title="Rotation"><span class="icon-spin3"></span></a>
+                <input type=number style="display:none;" id="rotateinput" value="0" min="-360" max="360" step=1 data-validation-allowing="range[-360;360],negative">
+                <a href="#" id="normalsize" class="toolbutton" title="Aspect ratio"><span class="icon-resize-small"></span></a>
+            </div>
+            <div id="tabs-3">
+                <input type=number id="imgsizewidth" value="0" min="100" max="5000" step=1 data-validation-allowing="range[0;5000]">w *
+                <input type=number id="imgsizeheight" value="0" min="100" max="5000" step=1 data-validation-allowing="range[0;5000]">h
+                <a href="#" id="resizebutton" class="toolbutton" title="Change size"><span class="icon-resize-full-alt"></span></a>
+            </div>
+            <div id="tabs-4">
+                <button class="pseudobutton texttools" id="textmode"><span class="icon-doc-text"></button>
+                <select id="font-face" class="texttools">
+                        <option>'Seymour One', sans-serif</option>
+                        <option>'PT Sans', sans-serif</option>
+                        <option>'Andika', sans-serif</option>
+                        <option>'Neucha', cursive</option>
+                        <option>'Bad Script', cursive</option>
+                        <option>'Istok Web', sans-serif</option>
+                        <option>'Ubuntu', sans-serif</option>
+                        <option>'PT Mono', mono</option>
+                        <option>'Marck Script', cursive</option>
+                        <option>'PT Serif', serif</option>
+                        <option>'Lobster', cursive</option>
+                        <option>'EB Garamond', serif</option>
+                        <option>'PT Sans Caption', sans-serif</option>
+                        <option>'Open Sans', sans-serif</option>
+                        <option>'Vollkorn', serif</option>
+                        <option>'Stalinist One', cursive</option>
+                        <option>'Stardos Stencil', cursive</option>
+                        <option>'Press Start 2P', cursive</option>
+                    </select>
+                <input id="font-size" type=number size=3 min="6" max="100" value="20" class="texttools">px
+                <input id="font-color" type="color" class="texttools">
+            </div>
+        </div>
+
+    </div>
+
+    <div id="canvaswindow" class="no-close">
+        <canvas id="myCanvas" width=600 height=400></canvas>
+
+    </div>
+
+    <div id="moreinfo" class="more">
+        Hide your face behind the mask, add captions or even create simple comics with "Catify" app.
+        <br> Everything is done in your browser, nothing is saved on our server. <br> Drag and drop or double click to add masks to canvas.<br> Try "face detection" function, to mask many people automatically<br> Delete masks using <span class="icon-cancel-circled-outline"></span>.
+        <br>Use buttons "download jpg" and "download png" or click canvas with right mouse button and choose "Save image as. If no "save as jpg/png" buttons appear (it may happen because of browser cross-server security policy#), try to upload source file from your pc and not from remote url.</div>
+
+    </div>
+
+    <div style="position:absolute;bottom:0px;">
+        The rights are not given, rights are taken. <span style="-webkit-transform: rotate(180deg); -moz-transform: rotate(180deg); -o-transform: rotate(180deg); -khtml-transform: rotate(180deg); -ms-transform: rotate(180deg); transform: rotate(180deg); display: inline-block;"> © </span><a href="http://nihilist.games">Alexandr Wolodarsky <span class="icon-shiitman" style="font-size:200%;"></a></span>
+        <br /> GNU GPL 2.0
+    </div>
+
+</body>
+
+</html>

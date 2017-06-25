@@ -1,0 +1,127 @@
+#imagelink {
+       position: relative;
+   }
+   
+   .notify {
+       position: absolute;
+       z-index: 1000;
+       font-size: 150%;
+   }
+   
+   a {
+       color: black;
+       text-decoration: none;
+   }
+   
+   a.helpbutton {
+       display: inline-block;
+       opacity: 0.9;
+       transition: transform 0.1s;
+   }
+   
+   #downloadlink:hover {
+       font-weight: bold;
+       text-decoration: underline;
+   }
+   
+   span.pseudobutton {
+       color: #555555;
+       font-size: 30px;
+   }
+   
+   a.helpbutton:hover {
+       opacity: 1;
+       -webkit-transform: scale(1.2);
+       -moz-transform: scale(1.2);
+       -ms-transform: scale(1.2);
+       -o-transform: scale(1.2);
+       transform: scale(1.2);
+   }
+   
+   a.toolbutton {
+       display: inline-block;
+       transition: transform 0.1s;
+       font-size: 150%;
+       opacity: 0.85;
+   }
+   
+   a.toolbutton:hover {
+       -webkit-transform: scale(1.2);
+       -moz-transform: scale(1.2);
+       -ms-transform: scale(1.2);
+       -o-transform: scale(1.2);
+       transform: scale(1.2);
+       opacity: 1;
+   }
+   
+   a.tool-red {
+       color: red;
+   }
+   
+   #myCanvas {
+       border: 5px solid black;
+   }
+   
+   .brush {
+       background: white;
+       transition: transform 0.1s linear;
+   }
+   
+   .brush:hover {
+       -webkit-transform: scale(1.1);
+       -moz-transform: scale(1.1);
+       -ms-transform: scale(1.1);
+       -o-transform: scale(1.1);
+       transform: scale(1.1);
+       -webkit-box-shadow: 0px 0px 5px 2px rgba(255, 68, 0, 0.75);
+       -moz-box-shadow: 0px 0px 5px 2px rgba(255, 68, 0, 0.75);
+       box-shadow: 0px 0px 5px 2px rgba(255, 68, 0, 0.75);
+       opacity: 0.9;
+   }
+   
+   .no-close .ui-dialog-titlebar-close {
+       display: none;
+   }
+   
+   #brushes {
+       display: block;
+       max-height: 200px;
+   }
+   
+   #brushes span {
+       display: inline-block;
+   }
+   
+   #brushes img {
+       max-height: 60px;
+       max-width: 60px;
+       min-width: 60px;
+       vertical-align: middle;
+   }
+   
+   .brush {
+       margin: 2px;
+   }
+   
+   .brushSelected {
+       -webkit-box-shadow: 0px 0px 5px 2px rgba(105, 100, 100, 0.75);
+       -moz-box-shadow: 0px 0px 5px 2px rgba(105, 100, 100, 0.75);
+       box-shadow: 0px 0px 5px 2px rgba(105, 100, 100, 0.75);
+   }
+   
+   #helpb {
+       display: none;
+   }
+   
+   #moreinfo {
+       display: none;
+   }
+   
+   ._tools {
+       display: none;
+   }
+   
+   ._tools .ui-dialog-titlebar-close {
+       display: none;
+   }
+}
