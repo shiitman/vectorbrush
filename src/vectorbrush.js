@@ -504,11 +504,12 @@
         }
     }
     class TextManager {
-        constructor() {
+        constructor(canvas) {
             this.font = "Ubuntu";
             this.size = 16;
             this.color = "#000000";
             this.effects = [];
+            this.canvas = canvas;
         }
 
         propsFromInput(font, size, color) {
@@ -526,6 +527,7 @@
             shape.fill.font = this.font;
             shape.fill.size = Number(this.size);
             shape.fill.color = this.color;
+            this.canvas.shapeManager.valid = false;
         }
 
         synchronizeBack(shape) {
@@ -611,7 +613,7 @@
             this.backBuffer.height = canvas.height;
             this.backCtx = canvas.getContext('2d');
 
-            this.textProps = new TextManager();
+            this.textProps = new TextManager(this);
 
             this.backgroundImage = new Image();
 

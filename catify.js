@@ -170,7 +170,7 @@ class Catify {
                 $("#textChange")[0].editing = this.shapeManager.selection;
                 this.catifyCanvas.textProps.synchronizeBack($("#textChange")[0].editing);
                 this.catifyCanvas.textProps.propsToInput($("#font-face"), $("#font-size"), $("#font-color"));
-                this.catifyCanvas.valid = false;
+                this.shapeManager.valid = false;
                 this.catifyCanvas.draw();
                 return;
             }
@@ -364,12 +364,12 @@ $().ready(function () {
             return false;
         }
     });
-    $(".texttools").change(function (event) {
+    $(".texttools").on("input", function (event) {
         catify.catifyCanvas.textProps.propsFromInput($("#font-face").val(), $("#font-size").val(), $("#font-color").val());
         if (catify.shapeManager.selection) {
             catify.catifyCanvas.textProps.synchronize(catify.shapeManager.selection);
         }
-        catify.catifyCanvas.valid = false;
+        catify.shapeManager.valid = false;
         catify.catifyCanvas.draw();
     });
     $("#font-size").keyup(function () {
